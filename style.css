@@ -1101,3 +1101,220 @@ section {
     padding: 24px;
   }
 }
+.pc-photo {
+    width: 85%;            /* Ajuste o tamanho do PC aqui */
+    height: 85%;
+    object-fit: contain;   /* Garante que o PC apareça inteiro sem cortar */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Centraliza no meio do card */
+    z-index: 2;
+}
+/* 1. FORÇA OS CARDS A FICAREM EM COLUNAS LADO A LADO */
+#builds-container {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)) !important; 
+    gap: 30px !important;
+    padding: 40px 20px;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* 2. FAZ O CARD VOLTAR A SER VERTICAL */
+.build-card {
+    display: flex !important;
+    flex-direction: column !important; /* Foto em cima, texto embaixo */
+    background: #110e0c;
+    border: 1px solid rgba(255,255,255,0.05);
+    border-radius: 4px;
+    overflow: hidden;
+    height: auto;
+    cursor: pointer;
+}
+
+/* 3. DEFINE O QUADRADO DA FOTO (VOLTA AO TAMANHO ORIGINAL) */
+.build-card-img {
+    position: relative !important;
+    width: 100% !important;
+    height: 350px !important; /* ALTURA DO QUADRADO DA FOTO */
+    background: #070707; /* Fundo preto para destacar o PC */
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+/* 4. FAZ A FOTO FICAR GRANDE E CENTRALIZADA NO QUADRADO */
+.pc-photo {
+    width: 85% !important;   /* Ocupa 85% do quadrado */
+    height: 85% !important;  /* Ocupa 85% do quadrado */
+    object-fit: contain !important; /* Não deixa a foto esticar */
+    position: absolute !important;
+    z-index: 2;
+}
+
+/* 5. LINHAS DE FUNDO (PONTINHOS) */
+.blueprint-lines {
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(rgba(42, 132, 208, 0.15) 1px, transparent 1px);
+    background-size: 20px 20px;
+    z-index: 1;
+}
+
+/* 6. PARTE DO TEXTO (NOME E PREÇO) */
+.build-card-body {
+    padding: 24px;
+    background: #110e0c;
+    flex-grow: 1;
+}
+/* 1. O CONTAINER DA IMAGEM (O QUADRADO) */
+.build-card-img {
+    position: relative !important;
+    width: 100% !important;
+    height: 280px !important; /* Altura fixa para todos ficarem iguais */
+    background: #0b0907 !important; /* Fundo escuro */
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    overflow: hidden !important; /* Corta o que sobrar da imagem */
+    border-bottom: 1px solid rgba(42, 132, 208, 0.1);
+}
+
+/* 2. A FOTO DO PC */
+.pc-photo {
+    width: 100% !important;   /* Tenta ocupar a largura */
+    height: 100% !important;  /* Tenta ocupar a altura */
+    object-fit: contain !important; /* ESSENCIAL: Faz a foto caber inteira sem cortar e sem esticar */
+    padding: 20px !important;       /* Dá um espaço para não encostar nas bordas e no botão */
+    position: absolute !important;
+    z-index: 1 !important;    /* Camada de baixo */
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+}
+
+/* 3. O BOTÃO/BADGE (GAMING, OFFICE, ETC) */
+.build-badge {
+    position: absolute !important;
+    top: 15px !important;
+    right: 15px !important;
+    z-index: 10 !important;   /* CAMADA ALTA: Garante que fique na frente da foto */
+    background: var(--blue) !important;
+    color: #000 !important;
+    font-weight: 800 !important;
+    padding: 6px 12px !important;
+    border-radius: 2px !important;
+    font-family: var(--font-mono) !important;
+    font-size: 10px !important;
+}
+
+/* 4. AS LINHAS DE FUNDO (PONTINHOS) */
+.blueprint-lines {
+    position: absolute !important;
+    inset: 0 !important;
+    z-index: 0 !important;    /* Fica atrás de tudo */
+    opacity: 0.3 !important;
+    pointer-events: none;
+}
+:root {
+    --void: #0B0907;
+    --iron: #14110e;
+    --blue: #2a84d0;
+    --ash: #F4EDE4;
+    --gray: #7A6A5E;
+    --font-display: 'Barlow Condensed', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+}
+
+body {
+    background: var(--void);
+    color: var(--ash);
+    font-family: 'Barlow', sans-serif;
+    margin: 0;
+    padding-top: 80px;
+}
+
+/* NAVBAR */
+nav {
+    position: fixed; top: 0; width: 100%; height: 80px;
+    background: rgba(11, 9, 7, 0.95);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 50px; box-sizing: border-box; z-index: 1000;
+    border-bottom: 1px solid rgba(42, 132, 208, 0.2);
+}
+.nav-logo-text { font-family: var(--font-display); font-size: 24px; letter-spacing: 5px; font-weight: 900; }
+.nav-links a { text-decoration: none; color: var(--gray); margin: 0 20px; font-size: 13px; font-weight: bold; text-transform: uppercase; }
+
+/* GRID DE CARDS */
+.builds-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+/* CARD INDIVIDUAL */
+.build-card {
+    background: var(--iron);
+    border: 1px solid rgba(42, 132, 208, 0.15);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.3s;
+    overflow: hidden;
+}
+.build-card:hover { border-color: var(--blue); transform: translateY(-5px); }
+
+.build-card-img {
+    position: relative; height: 250px; background: #000;
+    display: flex; align-items: center; justify-content: center;
+}
+
+.pc-photo {
+    width: 85%; height: 85%; object-fit: contain; z-index: 2;
+}
+
+.build-badge {
+    position: absolute; top: 15px; right: 15px; z-index: 10;
+    background: var(--blue); color: #000; font-size: 10px;
+    padding: 4px 10px; font-weight: bold; font-family: var(--font-mono);
+}
+
+.build-card-body { padding: 25px; }
+.build-name { font-family: var(--font-display); font-size: 22px; letter-spacing: 1px; text-transform: uppercase; margin: 0; }
+.build-tagline { color: var(--gray); font-size: 13px; margin: 10px 0 20px; height: 40px; }
+.build-price { font-family: var(--font-display); font-size: 24px; font-weight: 900; }
+
+/* SEGUNDA TELA (DETALHES) */
+.detalhes-wrapper { padding: 40px 60px; max-width: 1300px; margin: 0 auto; }
+.detalhes-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; margin-top: 30px; }
+
+.detalhes-visual {
+    background: #070707; height: 550px; border: 1px solid rgba(42, 132, 208, 0.2);
+    border-radius: 8px; position: relative; display: flex; align-items: center; justify-content: center;
+}
+.pc-photo-detail { width: 80%; height: 80%; object-fit: contain; z-index: 2; }
+
+.spec-machine-name { font-family: var(--font-display); font-size: 50px; margin: 0; text-transform: uppercase; }
+.spec-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+.spec-table td { padding: 15px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+.spec-table td:first-child { color: var(--blue); font-family: var(--font-mono); font-weight: bold; width: 150px; }
+
+.spec-modal-price { font-family: var(--font-display); font-size: 40px; font-weight: 900; color: var(--blue); }
+
+.blueprint-lines {
+    position: absolute; inset: 0; z-index: 1; opacity: 0.2;
+    background-image: radial-gradient(var(--blue) 1px, transparent 1px);
+    background-size: 25px 25px;
+}
+
+.btn-primary { background: var(--blue); border: none; padding: 15px 30px; color: #000; font-weight: bold; cursor: pointer; text-transform: uppercase; }
+.btn-ghost { background: none; border: 1px solid var(--gray); color: var(--ash); padding: 10px 20px; cursor: pointer; }
+
+/* RESPONSIVO */
+@media (max-width: 1000px) {
+    .builds-grid, .detalhes-grid { grid-template-columns: 1fr; }
+}
