@@ -26,6 +26,29 @@ const BANCO_DE_HARDWARE = {
       temp: '62°C Estável'
     }
   },
+  'Frost G-2': {
+    name: 'FORGE G-2: Dark Knight',
+    tagline: 'Setup All-White completo voltado para alta taxa de quadros e excelente estabilidade térmica.',
+    price: 'R$ 8.900',
+    badge: 'GAMING WHITE',
+    renderClass: 'chassis-silhouette white',
+    specs: {
+      cpu: 'Intel Core i5-14600KF (14 Cores / 20 Threads / Turbo 5.3GHz)',
+      gpu: 'NVIDIA GeForce RTX 4070 12GB GDDR6X White Edition',
+      motherboard: 'ASUS ROG Strix B760-A Gaming WiFi D5 White',
+      ram: '32GB (2x16GB) DDR5 6000MHz Corsair Vengeance RGB WH',
+      storage: '1TB SSD NVMe M.2 Kingston Renegade Gen4 (7.300 MB/s)',
+      cooler: 'Water Cooler 240mm Deepcool LT520 WH (Liquid AIO)',
+      psu: '750W Corsair 80 Plus Gold Modular SFX White',
+      cabinet: 'Lian Li O11 Dynamic Mini White Edition'
+    },
+    benchmarks: {
+      cinebench: '18.900 pts',
+      timespy: '17.200 pts',
+      fps: '310 FPS Avg',
+      temp: '62°C Estável'
+    }
+  },
   'Business Pro': {
     name: 'FORGE Business Pro',
     tagline: 'Silencioso, altamente compacto e dimensionado para altíssima agilidade em desenvolvimento de códigos e planilhas massivas.',
@@ -682,4 +705,110 @@ function solicitarVenda(nomePC, event) {
   } else {
     openBuildModal(nomePC, 'Sob Consulta');
   }
+}
+// BANCO DE DATOS DE 30 COMPUTADORES
+const computadores = [
+    { id: "Frost G-1", badge: "Gaming", cor: "white", preco: "R$ 8.900", img: "R.jpg", cpu: "i5-14600KF", gpu: "RTX 4070 White", ram: "32GB DDR5", ssd: "1TB Gen4", psu: "750W Gold", case: "O11 Mini" },
+    { id: "Obsidian X", badge: "Workstation", cor: "black", preco: "R$ 12.500", img: "pc-preto.png", cpu: "i7-14700K", gpu: "RTX 4070 Ti Super", ram: "64GB DDR5", ssd: "2TB Gen4", psu: "850W Gold", case: "H9 Flow" },
+    { id: "Titan IA", badge: "High-End", cor: "black", preco: "R$ 25.000", img: "titan.png", cpu: "Ryzen 9 7950X", gpu: "RTX 4090 24GB", ram: "128GB DDR5", ssd: "4TB Gen4", psu: "1200W Platinum", case: "Forge Case" },
+    { id: "Nebula", badge: "Gaming", cor: "black", preco: "R$ 5.800", img: "nebula.png", cpu: "i5-13400F", gpu: "RTX 4060 Ti", ram: "16GB DDR4", ssd: "1TB NVMe", psu: "650W Bronze", case: "Standard" },
+    { id: "Spectre", badge: "Gaming", cor: "white", preco: "R$ 4.500", img: "spectre.png", cpu: "Ryzen 5 5600", gpu: "RTX 3060 White", ram: "16GB DDR4", ssd: "500GB NVMe", psu: "600W", case: "Mini White" },
+    { id: "Valkyrie", badge: "Ultra", cor: "white", preco: "R$ 22.000", img: "valkyrie.png", cpu: "i9-14900K", gpu: "RTX 4080 Super White", ram: "64GB DDR5", ssd: "2TB Gen4", psu: "1000W Gold", case: "Lian Li Dynamic" }
+    // O sistema vai repetir esses modelos até chegar em 30 para preencher o site
+];
+
+// GERADOR AUTOMÁTICO DOS 30 CARDS
+function carregarCards() {
+    const container = document.getElementById('builds-container');
+    container.innerHTML = ""; // Limpa
+
+    for (let i = 0; i < 30; i++) {
+        const pc = computadores[i % computadores.length]; // Repete os modelos para completar 30
+        const card = document.createElement('div');
+        card.className = 'build-card';
+        card.onclick = () => abrirDetalhes(pc);
+        
+        card.innerHTML = `
+            <div class="build-card-img">
+                <span class="build-badge">${pc.badge}</span>
+                <div class="blueprint-lines"></div>
+                <img src="${pc.img}" class="pc-photo">
+            </div>
+            <div class="build-card-body">
+                <div style="font-family:JetBrains Mono; font-size:10px; color:#2a84d0">${pc.gpu} • ${pc.cpu}</div>
+                <h3 class="build-name">${pc.id}</h3>
+                <p class="build-tagline">Alta performance garantida para seu workload.</p>
+                <div class="build-price">${pc.preco}</div>
+            </div>
+        `;
+        container.appendChild(card);
+    }
+}
+
+// FUNÇÃO PARA ABRIR A SEGUNDA TELA
+function abrirDetalhes(pc) {
+    document.getElementById('vendas').style.display = 'none';
+    document.getElementById('detalhes-produto').style.display = 'block';
+
+    document.getElementById('detalhe-nome').innerText = pc.id;
+    document.getElementById('detalhe-img').src = pc.img;
+    document.getElementById('detalhe-preco').innerText = pc.preco;
+    document.getElementById('detalhe-tagline').innerText = `Setup completo otimizado para ${pc.badge}.`;
+
+    const tabela = document.getElementById('tabela-specs');
+    tabela.innerHTML = `
+        <tr><td>PROCESSADOR</td><td>${pc.cpu}</td></tr>
+        <tr><td>PLACA DE VÍDEO</td><td>${pc.gpu}</td></tr>
+        <tr><td>MEMÓRIA RAM</td><td>${pc.ram}</td></tr>
+        <tr><td>ARMAZENAMENTO</td><td>${pc.ssd}</td></tr>
+        <tr><td>FONTE</td><td>${pc.psu}</td></tr>
+        <tr><td>GABINETE</td><td>${pc.case}</td></tr>
+    `;
+    window.scrollTo(0,0);
+}
+
+function fecharDetalhes() {
+    document.getElementById('vendas').style.display = 'block';
+    document.getElementById('detalhes-produto').style.display = 'none';
+}
+
+// Inicia o site
+carregarCards();
+// BANCO DE DADOS DOS 30 PCs (Preencha os dados de cada um aqui)
+const baseDadosPCs = {
+  "Frost G-1": { cpu: "i5-14600KF", gpu: "RTX 4070 White", ram: "32GB DDR5", ssd: "1TB Gen4", psu: "750W Gold", case: "Lian Li White", preco: "R$ 8.900", img: "R.jpg" },
+  "Dark Knight": { cpu: "Ryzen 7 7700X", gpu: "RTX 4070 Super Black", ram: "32GB DDR5", ssd: "1TB Fury", psu: "850W Gold", case: "NZXT H9 Flow", preco: "R$ 9.500", img: "pc-preto.png" },
+  "Titan IA": { cpu: "Ryzen 9 7950X", gpu: "RTX 4090 24GB", ram: "128GB DDR5", ssd: "4TB Gen4", psu: "1200W Plat", case: "Forge Case", preco: "R$ 25.000", img: "titan.png" },
+  // ... adicione os outros 27 nomes e peças seguindo esse padrão
+};
+
+function abrirProdutoEmNovaAba(id) {
+  const pc = baseDadosPCs[id];
+  if (!pc) return;
+
+  // Troca as telas
+  document.getElementById('vendas').style.display = 'none';
+  document.getElementById('detalhes-produto').style.display = 'block';
+
+  // Preenche os textos da segunda tela
+  document.getElementById('detalhe-nome').innerText = id;
+  document.getElementById('detalhe-preco').innerText = pc.preco;
+  document.getElementById('detalhe-img').src = pc.img;
+
+  // Monta a tabela de peças
+  const corpoTabela = document.getElementById('tabela-specs-corpo');
+  corpoTabela.innerHTML = `
+    <tr><td style="color:var(--blue); padding:12px 0; font-family:var(--font-mono);">PROCESSADOR</td><td style="color:var(--ash);">${pc.cpu}</td></tr>
+    <tr><td style="color:var(--blue); padding:12px 0; font-family:var(--font-mono);">PLACA DE VÍDEO</td><td style="color:var(--ash);">${pc.gpu}</td></tr>
+    <tr><td style="color:var(--blue); padding:12px 0; font-family:var(--font-mono);">MEMÓRIA RAM</td><td style="color:var(--ash);">${pc.ram}</td></tr>
+    <tr><td style="color:var(--blue); padding:12px 0; font-family:var(--font-mono);">ARMAZENAMENTO</td><td style="color:var(--ash);">${pc.ssd}</td></tr>
+    <tr><td style="color:var(--blue); padding:12px 0; font-family:var(--font-mono);">FONTE</td><td style="color:var(--ash);">${pc.psu}</td></tr>
+    <tr><td style="color:var(--blue); padding:12px 0; font-family:var(--font-mono);">GABINETE</td><td style="color:var(--ash);">${pc.case}</td></tr>
+  `;
+  window.scrollTo(0, 0);
+}
+
+function fecharDetalhes() {
+  document.getElementById('vendas').style.display = 'block';
+  document.getElementById('detalhes-produto').style.display = 'none';
 }
